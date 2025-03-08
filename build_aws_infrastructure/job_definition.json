@@ -1,0 +1,76 @@
+{
+  "jobDefinitionName": "job_def_4",
+  "nodeProperties": {
+    "mainNode": 0,
+    "nodeRangeProperties": [
+      {
+        "targetNodes": "0:2",
+        "container": {
+          "image": "5xxxxxxxxxxx.dkr.ecr.us-east-2.amazonaws.com/ecr_repo:tag_02_27_25",
+          "command": [],
+          "jobRoleArn": "arn:aws:iam::5xxxxxxxxxxx:role/MyRole-AWS-ECStask-S3FullAccesss",
+          "executionRoleArn": "arn:aws:iam::5xxxxxxxxxxx:role/ecsTaskExecutionRole",
+          "volumes": [
+            {
+              "host": {
+                "sourcePath": "/scratch"
+              },
+              "name": "scratch"
+            }
+          ],
+          "environment": [
+            {
+              "name": "SCRATCH_DIR",
+              "value": "/scratch"
+            },
+            {
+              "name": "MPI_THREADS",
+              "value": "3"
+            },
+            {
+              "name": "S3_INPUT",
+              "value": "s3://bucket-xxxxxxxxx/qe_inputs.tar.gz"
+            },
+            {
+              "name": "S3_OUTPUT",
+              "value": "s3://bucket-xxxxxxxxx/"
+            }
+          ],
+          "mountPoints": [
+            {
+              "containerPath": "/scratch",
+              "readOnly": false,
+              "sourceVolume": "scratch"
+            }
+          ],
+          "privileged": true,
+          "ulimits": [],
+          "user": "root",
+          "resourceRequirements": [
+            {
+              "value": "2",
+              "type": "VCPU"
+            },
+            {
+              "value": "2048",
+              "type": "MEMORY"
+            }
+          ],
+          "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {},
+            "secretOptions": []
+          },
+          "secrets": []
+        },
+        "instanceTypes": []
+      }
+    ],
+    "numNodes": 3
+  },
+  "parameters": {},
+  "platformCapabilities": [
+    "EC2"
+  ],
+  "type": "multinode"
+}
